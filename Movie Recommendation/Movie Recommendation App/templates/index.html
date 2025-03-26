@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            text-shadow: 2px 2px 4px #aaa;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-right: 10px;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 1em;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .clear-button {
+            background-color: #e74c3c;
+        }
+
+        .clear-button:hover {
+            background-color: #c0392b;
+        }
+
+        h2 {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Recommendation System</h1>
+    <form action="/" method="post">
+        <label for="title">Enter Movie Title:</label>
+        <input type="text" id="title" name="title" required>
+        <button type="submit">Search Movie</button>
+        <button type="button" class="clear-button" onclick="clearResults()">Clear</button>
+    </form>
+
+    {% if search_results %}
+        <h2>Search Results</h2>
+        <ul>
+            {% for result in search_results %}
+                <li>{{ result.title }} - {{ result.genres }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if recommendations %}
+        <h2>Recommended Movies</h2>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>{{ recommendation.title }} - {{ recommendation.genres }} - Score: {{ recommendation.score }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script>
+        function clearResults() {
+            document.getElementById('title').value = '';
+            document.querySelectorAll('ul').forEach(function (ul) {
+                ul.innerHTML = '';
+            });
+        }
+    </script>
+</body>
+</html>

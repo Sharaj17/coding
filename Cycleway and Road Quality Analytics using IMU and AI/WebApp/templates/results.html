@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/static/bg2.jpg') no-repeat center center fixed;
+            background-color: #f4f4f9;
+            padding-bottom: 100px; /* Add padding at the bottom to prevent content from being hidden behind the footer */
+        }
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 1200px;
+            margin: auto;
+            opacity: 0.95;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ccc;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .graph-container {
+            margin-bottom: 30px;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 50px; /* Ensure space above the footer */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Analysis Results</h1>
+
+        <h2 class="mt-4">Map with Path and Markers</h2>
+        <div id="map">
+            {{ map_html|safe }}
+        </div>
+
+        <h2 class="mt-4">Graphs</h2>
+
+        <div class="graph-container">
+            <h3>Line Chart</h3>
+            <div id="line-chart"></div>
+            <script>
+                var line_chart_data = {{ line_chart_url|safe }};
+                Plotly.newPlot('line-chart', line_chart_data.data, line_chart_data.layout, {displayModeBar: true});
+            </script>
+        </div>
+
+        <div class="graph-container">
+            <h3>Heatmap</h3>
+            <div id="heatmap"></div>
+            <script>
+                var heatmap_data = {{ heatmap_url|safe }};
+                Plotly.newPlot('heatmap', heatmap_data.data, heatmap_data.layout, {displayModeBar: true});
+            </script>
+        </div>
+
+        <div class="graph-container">
+            <h3>Boxplot</h3>
+            <div id="boxplot"></div>
+            <script>
+                var boxplot_data = {{ boxplot_url|safe }};
+                Plotly.newPlot('boxplot', boxplot_data.data, boxplot_data.layout, {displayModeBar: true});
+            </script>
+        </div>
+
+        <div class="graph-container">
+            <h3>Pie Chart</h3>
+            <div id="pie-chart"></div>
+            <script>
+                var pie_chart_data = {{ pie_chart_url|safe }};
+                Plotly.newPlot('pie-chart', pie_chart_data.data, pie_chart_data.layout, {displayModeBar: true});
+            </script>
+        </div>
+
+        <div class="button-container">
+            <a href="/" class="btn btn-primary mt-4">Analyze Another File</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Cycleway Analysis | Developed by Sharaj Jagadeesan</p>
+    </footer>
+</body>
+</html>
